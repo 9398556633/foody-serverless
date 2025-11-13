@@ -12,7 +12,7 @@
       "timeout": 28,
       "environment": {
         "MONGODB_URL": "mongodb+srv://foodway:1234@cluster0.urtrcl4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-        "CLIENT_URL": "http://bucket-server-less-1.s3-website-us-east-1.amazonaws.com",
+        "CLIENT_URL": "http://bucket-server-less-11.s3-website-us-east-1.amazonaws.com",
         "JWT_SECRET": "KJHGSDIOKJOHDF",
         "EMAIL_PASS": "vqno zevg uxbn wylp",
         "EMAIL_USER": "mandikishore2000@gmail.com",
@@ -20,14 +20,14 @@
         "SMTP_PASS": "vqno zevg uxbn wylp",
         "SMTP_PORT": "587",
         "SMTP_USER": "mandikishore2000@gmail.com",
-        "AWS_S3_BUCKET_NAME": "bucket-server-less-1",
+        "AWS_S3_BUCKET_NAME": "bucket-server-less-11",
         "EMAIL": "mandikishore2000@gmail.com",
         "CLOUDINARY_CLOUD_NAME": "charan12",
         "CLOUDINARY_API_KEY": "478681192216688",
         "CLOUDINARY_API_SECRET": "du1JrEvTmjfmDiDa-Yi9cfP4MWc",
         "RAZORPAY_KEY_ID": "rzp_test_RAcgtscfNdp1cg",
         "RAZORPAY_KEY_SECRET": "MWn5u9N8yFYjgQpVlNvix93f",
-        "FRONTEND_URL": "http://bucket-server-less-1.s3-website-us-east-1.amazonaws.com",
+        "FRONTEND_URL": "http://bucket-server-less-11.s3-website-us-east-1.amazonaws.com",
         "IS_LOCAL": "false"
       },
       "stage": "dev",
@@ -39,6 +39,7 @@
           "ServerlessDeploymentBucket": {
             "Type": "AWS::S3::Bucket",
             "Properties": {
+              "BucketName": "bucket-server-less-11",
               "BucketEncryption": {
                 "ServerSideEncryptionConfiguration": [
                   {
@@ -101,90 +102,6 @@
                       }
                     }
                   }
-                ]
-              }
-            }
-          },
-          "AppLogGroup": {
-            "Type": "AWS::Logs::LogGroup",
-            "Properties": {
-              "LogGroupName": "/aws/lambda/foodway-backend-dev-app"
-            }
-          },
-          "IamRoleLambdaExecution": {
-            "Type": "AWS::IAM::Role",
-            "Properties": {
-              "AssumeRolePolicyDocument": {
-                "Version": "2012-10-17",
-                "Statement": [
-                  {
-                    "Effect": "Allow",
-                    "Principal": {
-                      "Service": [
-                        "lambda.amazonaws.com"
-                      ]
-                    },
-                    "Action": [
-                      "sts:AssumeRole"
-                    ]
-                  }
-                ]
-              },
-              "Policies": [
-                {
-                  "PolicyName": {
-                    "Fn::Join": [
-                      "-",
-                      [
-                        "foodway-backend",
-                        "dev",
-                        "lambda"
-                      ]
-                    ]
-                  },
-                  "PolicyDocument": {
-                    "Version": "2012-10-17",
-                    "Statement": [
-                      {
-                        "Effect": "Allow",
-                        "Action": [
-                          "logs:CreateLogStream",
-                          "logs:CreateLogGroup",
-                          "logs:TagResource"
-                        ],
-                        "Resource": [
-                          {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/foodway-backend-dev*:*"
-                          }
-                        ]
-                      },
-                      {
-                        "Effect": "Allow",
-                        "Action": [
-                          "logs:PutLogEvents"
-                        ],
-                        "Resource": [
-                          {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/foodway-backend-dev*:*:*"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                }
-              ],
-              "Path": "/",
-              "RoleName": {
-                "Fn::Join": [
-                  "-",
-                  [
-                    "foodway-backend",
-                    "dev",
-                    {
-                      "Ref": "AWS::Region"
-                    },
-                    "lambdaRole"
-                  ]
                 ]
               }
             }
@@ -193,9 +110,7 @@
             "Type": "AWS::Lambda::Function",
             "Properties": {
               "Code": {
-                "S3Bucket": {
-                  "Ref": "ServerlessDeploymentBucket"
-                },
+                "S3Bucket": "bucket-server-less-11",
                 "S3Key": "serverless/foodway-backend/dev/1763034240265-2025-11-13T11:44:00.265Z/foodway-backend.zip"
               },
               "Handler": "index.handler",
@@ -203,13 +118,11 @@
               "FunctionName": "foodway-backend-dev-app",
               "MemorySize": 1024,
               "Timeout": 28,
-              "Architectures": [
-                "arm64"
-              ],
+              "Architectures": ["arm64"],
               "Environment": {
                 "Variables": {
                   "MONGODB_URL": "mongodb+srv://foodway:1234@cluster0.urtrcl4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-                  "CLIENT_URL": "http://bucket-server-less-1.s3-website-us-east-1.amazonaws.com",
+                  "CLIENT_URL": "http://bucket-server-less-11.s3-website-us-east-1.amazonaws.com",
                   "JWT_SECRET": "KJHGSDIOKJOHDF",
                   "EMAIL_PASS": "vqno zevg uxbn wylp",
                   "EMAIL_USER": "mandikishore2000@gmail.com",
@@ -217,330 +130,24 @@
                   "SMTP_PASS": "vqno zevg uxbn wylp",
                   "SMTP_PORT": "587",
                   "SMTP_USER": "mandikishore2000@gmail.com",
-                  "AWS_S3_BUCKET_NAME": "bucket-server-less-1",
+                  "AWS_S3_BUCKET_NAME": "bucket-server-less-11",
                   "EMAIL": "mandikishore2000@gmail.com",
                   "CLOUDINARY_CLOUD_NAME": "charan12",
                   "CLOUDINARY_API_KEY": "478681192216688",
                   "CLOUDINARY_API_SECRET": "du1JrEvTmjfmDiDa-Yi9cfP4MWc",
                   "RAZORPAY_KEY_ID": "rzp_test_RAcgtscfNdp1cg",
                   "RAZORPAY_KEY_SECRET": "MWn5u9N8yFYjgQpVlNvix93f",
-                  "FRONTEND_URL": "http://bucket-server-less-1.s3-website-us-east-1.amazonaws.com",
+                  "FRONTEND_URL": "http://bucket-server-less-11.s3-website-us-east-1.amazonaws.com",
                   "IS_LOCAL": "false"
                 }
               },
               "Role": {
-                "Fn::GetAtt": [
-                  "IamRoleLambdaExecution",
-                  "Arn"
-                ]
+                "Fn::GetAtt": ["IamRoleLambdaExecution", "Arn"]
               }
-            },
-            "DependsOn": [
-              "AppLogGroup"
-            ]
-          },
-          "AppLambdaVersionnBK0reHzNSwkKaPfrGfCHYdZgCImuyfS9qdEXOUA": {
-            "Type": "AWS::Lambda::Version",
-            "DeletionPolicy": "Retain",
-            "Properties": {
-              "FunctionName": {
-                "Ref": "AppLambdaFunction"
-              },
-              "CodeSha256": "bHlhWu8SKkUo/SSIvXOPNYo/tyRlCQvSnPy3HngEOe8="
-            }
-          },
-          "HttpApi": {
-            "Type": "AWS::ApiGatewayV2::Api",
-            "Properties": {
-              "Name": "dev-foodway-backend",
-              "ProtocolType": "HTTP"
-            }
-          },
-          "HttpApiStage": {
-            "Type": "AWS::ApiGatewayV2::Stage",
-            "Properties": {
-              "ApiId": {
-                "Ref": "HttpApi"
-              },
-              "StageName": "$default",
-              "AutoDeploy": true,
-              "DefaultRouteSettings": {
-                "DetailedMetricsEnabled": false
-              }
-            }
-          },
-          "AppLambdaPermissionHttpApi": {
-            "Type": "AWS::Lambda::Permission",
-            "Properties": {
-              "FunctionName": {
-                "Fn::GetAtt": [
-                  "AppLambdaFunction",
-                  "Arn"
-                ]
-              },
-              "Action": "lambda:InvokeFunction",
-              "Principal": "apigateway.amazonaws.com",
-              "SourceArn": {
-                "Fn::Join": [
-                  "",
-                  [
-                    "arn:",
-                    {
-                      "Ref": "AWS::Partition"
-                    },
-                    ":execute-api:",
-                    {
-                      "Ref": "AWS::Region"
-                    },
-                    ":",
-                    {
-                      "Ref": "AWS::AccountId"
-                    },
-                    ":",
-                    {
-                      "Ref": "HttpApi"
-                    },
-                    "/*"
-                  ]
-                ]
-              }
-            }
-          },
-          "HttpApiIntegrationApp": {
-            "Type": "AWS::ApiGatewayV2::Integration",
-            "Properties": {
-              "ApiId": {
-                "Ref": "HttpApi"
-              },
-              "IntegrationType": "AWS_PROXY",
-              "IntegrationUri": {
-                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"AppLambdaPermissionHttpApi\"][\"Properties\"][\"FunctionName\"]"
-              },
-              "PayloadFormatVersion": "2.0",
-              "TimeoutInMillis": 30000
-            }
-          },
-          "HttpApiRouteDefault": {
-            "Type": "AWS::ApiGatewayV2::Route",
-            "Properties": {
-              "ApiId": {
-                "Ref": "HttpApi"
-              },
-              "RouteKey": "$default",
-              "Target": {
-                "Fn::Join": [
-                  "/",
-                  [
-                    "integrations",
-                    {
-                      "Ref": "HttpApiIntegrationApp"
-                    }
-                  ]
-                ]
-              }
-            },
-            "DependsOn": "HttpApiIntegrationApp"
-          }
-        },
-        "Outputs": {
-          "ServerlessDeploymentBucketName": {
-            "Value": {
-              "Ref": "ServerlessDeploymentBucket"
-            },
-            "Export": {
-              "Name": "sls-foodway-backend-dev-ServerlessDeploymentBucketName"
-            }
-          },
-          "AppLambdaFunctionQualifiedArn": {
-            "Description": "Current Lambda function version",
-            "Value": {
-              "Ref": "AppLambdaVersionnBK0reHzNSwkKaPfrGfCHYdZgCImuyfS9qdEXOUA"
-            },
-            "Export": {
-              "Name": "sls-foodway-backend-dev-AppLambdaFunctionQualifiedArn"
-            }
-          },
-          "HttpApiId": {
-            "Description": "Id of the HTTP API",
-            "Value": {
-              "Ref": "HttpApi"
-            },
-            "Export": {
-              "Name": "sls-foodway-backend-dev-HttpApiId"
-            }
-          },
-          "HttpApiUrl": {
-            "Description": "URL of the HTTP API",
-            "Value": {
-              "Fn::Join": [
-                "",
-                [
-                  "https://",
-                  {
-                    "Ref": "HttpApi"
-                  },
-                  ".execute-api.",
-                  {
-                    "Ref": "AWS::Region"
-                  },
-                  ".",
-                  {
-                    "Ref": "AWS::URLSuffix"
-                  }
-                ]
-              ]
-            },
-            "Export": {
-              "Name": "sls-foodway-backend-dev-HttpApiUrl"
             }
           }
         }
-      },
-      "coreCloudFormationTemplate": {
-        "AWSTemplateFormatVersion": "2010-09-09",
-        "Description": "The AWS CloudFormation template for this Serverless application",
-        "Resources": {
-          "ServerlessDeploymentBucket": {
-            "Type": "AWS::S3::Bucket",
-            "Properties": {
-              "BucketEncryption": {
-                "ServerSideEncryptionConfiguration": [
-                  {
-                    "ServerSideEncryptionByDefault": {
-                      "SSEAlgorithm": "AES256"
-                    }
-                  }
-                ]
-              }
-            }
-          },
-          "ServerlessDeploymentBucketPolicy": {
-            "Type": "AWS::S3::BucketPolicy",
-            "Properties": {
-              "Bucket": {
-                "Ref": "ServerlessDeploymentBucket"
-              },
-              "PolicyDocument": {
-                "Statement": [
-                  {
-                    "Action": "s3:*",
-                    "Effect": "Deny",
-                    "Principal": "*",
-                    "Resource": [
-                      {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:",
-                            {
-                              "Ref": "AWS::Partition"
-                            },
-                            ":s3:::",
-                            {
-                              "Ref": "ServerlessDeploymentBucket"
-                            },
-                            "/*"
-                          ]
-                        ]
-                      },
-                      {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:",
-                            {
-                              "Ref": "AWS::Partition"
-                            },
-                            ":s3:::",
-                            {
-                              "Ref": "ServerlessDeploymentBucket"
-                            }
-                          ]
-                        ]
-                      }
-                    ],
-                    "Condition": {
-                      "Bool": {
-                        "aws:SecureTransport": false
-                      }
-                    }
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "Outputs": {
-          "ServerlessDeploymentBucketName": {
-            "Value": {
-              "Ref": "ServerlessDeploymentBucket"
-            }
-          }
-        }
-      },
-      "vpc": {}
-    },
-    "custom": {
-      "dotenv": {
-        "path": ".env"
       }
-    },
-    "plugins": [
-      "serverless-dotenv-plugin"
-    ],
-    "pluginsData": {},
-    "functions": {
-      "app": {
-        "handler": "index.handler",
-        "events": [
-          {
-            "httpApi": "*",
-            "resolvedMethod": "ANY"
-          }
-        ],
-        "name": "foodway-backend-dev-app",
-        "package": {},
-        "memory": 1024,
-        "timeout": 28,
-        "runtime": "nodejs20.x",
-        "vpc": {},
-        "versionLogicalId": "AppLambdaVersionnBK0reHzNSwkKaPfrGfCHYdZgCImuyfS9qdEXOUA"
-      }
-    },
-    "configValidationMode": "warn",
-    "serviceFilename": "serverless.yml",
-    "initialServerlessConfig": {
-      "service": "foodway-backend",
-      "provider": {
-        "$ref": "$[\"service\"][\"provider\"]"
-      },
-      "functions": {
-        "$ref": "$[\"service\"][\"functions\"]"
-      },
-      "plugins": {
-        "$ref": "$[\"service\"][\"plugins\"]"
-      },
-      "custom": {
-        "$ref": "$[\"service\"][\"custom\"]"
-      },
-      "package": {
-        "patterns": [
-          "!**/*.md",
-          "!node_modules/aws-sdk/**",
-          "public/**",
-          "assets/**"
-        ],
-        "artifactsS3KeyDirname": "serverless/foodway-backend/dev/code-artifacts",
-        "artifact": "C:\\Users\\nihar\\Downloads\\FOODY\\backend\\.serverless\\foodway-backend.zip",
-        "artifactDirectoryName": "serverless/foodway-backend/dev/1763034240265-2025-11-13T11:44:00.265Z"
-      }
-    },
-    "layers": {},
-    "isDashboardMonitoringPreconfigured": false,
-    "artifact": "C:\\Users\\nihar\\Downloads\\FOODY\\backend\\.serverless\\foodway-backend.zip"
-  },
-  "package": {
-    "artifactDirectoryName": "serverless/foodway-backend/dev/1763034240265-2025-11-13T11:44:00.265Z",
-    "artifact": "foodway-backend.zip"
+    }
   }
 }
