@@ -1,0 +1,44 @@
+service: foodway-backend
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-south-1
+  architecture: arm64
+  timeout: 28
+
+  environment:
+    MONGODB_URL: "mongodb+srv://foodway:1234@cluster0.urtrcl4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    CLIENT_URL: "http://bucket-server-less-1.s3-website-us-east-1.amazonaws.com"
+    JWT_SECRET: "KJHGSDIOKJOHDF"
+
+    EMAIL_PASS: "vqno zevg uxbn wylp"
+    EMAIL_USER: "mandikishore2000@gmail.com"
+
+    SMTP_HOST: "smtp.gmail.com"
+    SMTP_PASS: "vqno zevg uxbn wylp"
+    SMTP_PORT: "587"
+    SMTP_USER: "mandikishore2000@gmail.com"
+
+    AWS_S3_BUCKET_NAME: "bucket-server-less-1"
+
+functions:
+  app:
+    handler: index.handler
+    events:
+      - httpApi: "*"
+
+plugins:
+  - serverless-dotenv-plugin
+
+custom:
+  dotenv:
+    path: .env
+
+package:
+  patterns:
+    - '!**/*.md'
+    - '!node_modules/aws-sdk/**'
+    - 'public/**'
+    - 'assets/**'
+
