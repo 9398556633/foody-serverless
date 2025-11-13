@@ -14,59 +14,35 @@
               }
             }
           ]
+        },
+        "OwnershipControls": {
+          "Rules": [
+            {
+              "ObjectOwnership": "BucketOwnerEnforced"
+            }
+          ]
         }
       }
     },
     "ServerlessDeploymentBucketPolicy": {
       "Type": "AWS::S3::BucketPolicy",
       "Properties": {
-        "Bucket": {
-          "Ref": "ServerlessDeploymentBucket"
-        },
+        "Bucket": { "Ref": "ServerlessDeploymentBucket" },
         "PolicyDocument": {
           "Statement": [
             {
-              "Action": "s3:*",
               "Effect": "Deny",
               "Principal": "*",
+              "Action": "s3:*",
               "Resource": [
                 {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition"
-                      },
-                      ":s3:::",
-                      {
-                        "Ref": "ServerlessDeploymentBucket"
-                      },
-                      "/*"
-                    ]
-                  ]
+                  "Fn::Join": ["", ["arn:", { "Ref": "AWS::Partition" }, ":s3:::", { "Ref": "ServerlessDeploymentBucket" }, "/*"]]
                 },
                 {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition"
-                      },
-                      ":s3:::",
-                      {
-                        "Ref": "ServerlessDeploymentBucket"
-                      }
-                    ]
-                  ]
+                  "Fn::Join": ["", ["arn:", { "Ref": "AWS::Partition" }, ":s3:::", { "Ref": "ServerlessDeploymentBucket" }]]
                 }
               ],
-              "Condition": {
-                "Bool": {
-                  "aws:SecureTransport": false
-                }
-              }
+              "Condition": { "Bool": { "aws:SecureTransport": false } }
             }
           ]
         }
@@ -75,9 +51,7 @@
   },
   "Outputs": {
     "ServerlessDeploymentBucketName": {
-      "Value": {
-        "Ref": "ServerlessDeploymentBucket"
-      }
+      "Value": { "Ref": "ServerlessDeploymentBucket" }
     }
   }
 }
