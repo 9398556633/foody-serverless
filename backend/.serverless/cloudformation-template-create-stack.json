@@ -5,6 +5,7 @@
     "ServerlessDeploymentBucket": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
+        "BucketName": "bucket-server-less-11",
         "BucketEncryption": {
           "ServerSideEncryptionConfiguration": [
             {
