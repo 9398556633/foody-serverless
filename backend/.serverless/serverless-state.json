@@ -40,6 +40,13 @@
             "Type": "AWS::S3::Bucket",
             "Properties": {
               "BucketName": "bucket-server-less-11",
+              "OwnershipControls": {
+                "Rules": [
+                  {
+                    "ObjectOwnership": "BucketOwnerEnforced"
+                  }
+                ]
+              },
               "BucketEncryption": {
                 "ServerSideEncryptionConfiguration": [
                   {
@@ -58,11 +65,13 @@
                 "Ref": "ServerlessDeploymentBucket"
               },
               "PolicyDocument": {
+                "Version": "2012-10-17",
                 "Statement": [
                   {
-                    "Action": "s3:*",
+                    "Sid": "DenyUnencryptedTransport",
                     "Effect": "Deny",
                     "Principal": "*",
+                    "Action": "s3:*",
                     "Resource": [
                       {
                         "Fn::Join": [
@@ -111,7 +120,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "bucket-server-less-11",
-                "S3Key": "serverless/foodway-backend/dev/1763034240265-2025-11-13T11:44:00.265Z/foodway-backend.zip"
+                "S3Key": "serverless/foodway-backend/dev/foodway-backend.zip"
               },
               "Handler": "index.handler",
               "Runtime": "nodejs20.x",
